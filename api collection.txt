@@ -1,0 +1,1518 @@
+{
+  "info": {
+    "name": "Hotel Booking System API",
+    "description": "Complete API collection for Hotel Booking System with authentication and role-based access",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "hotel_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "booking_id", 
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "review_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "🌐 Public Routes",
+      "item": [
+        {
+          "name": "🏨 Hotels",
+          "item": [
+            {
+              "name": "Get All Hotels",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels"]
+                }
+              }
+            },
+            {
+              "name": "Get Hotel Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Search Hotels",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"location\": \"Jakarta\",\n  \"check_in\": \"2025-07-01\",\n  \"check_out\": \"2025-07-03\",\n  \"guests\": 2,\n  \"min_price\": 100000,\n  \"max_price\": 1000000\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/search",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "search"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "🛏️ Room Types",
+          "item": [
+            {
+              "name": "Get All Room Types",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types"]
+                }
+              }
+            },
+            {
+              "name": "Get Room Type Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "🏠 Rooms",
+          "item": [
+            {
+              "name": "Get Available Rooms",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms/available?check_in=2025-07-01&check_out=2025-07-03&hotel_id={{hotel_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms", "available"],
+                  "query": [
+                    {
+                      "key": "check_in_date",
+                      "value": "2025-07-01"
+                    },
+                    {
+                      "key": "check_out_date", 
+                      "value": "2025-07-03"
+                    },
+                    {
+                      "key": "hotel_id",
+                      "value": "{{hotel_id}}"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "⭐ Reviews",
+          "item": [
+            {
+              "name": "Get All Reviews",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/reviews",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "reviews"]
+                }
+              }
+            },
+            {
+              "name": "Get Review Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/reviews/{{review_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "reviews", "{{review_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Get Hotel Reviews",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}/reviews",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}", "reviews"]
+                }
+              }
+            },
+            {
+              "name": "Get Review Statistics",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/v1/reviews/statistics",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "reviews", "statistics"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "👤 User Authentication",
+          "item": [
+            {
+              "name": "Register User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 201) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.user) {",
+                      "        pm.collectionVariables.set('user_id', response.data.user.id.toString());",
+                      "    }",
+                      "    if (response.data && response.data.token) {",
+                      "        pm.collectionVariables.set('auth_token', response.data.token);",
+                      "    }",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"password_confirmation\": \"password123\",\n  \"phone\": \"+628123456789\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/users/register",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "register"]
+                }
+              }
+            },
+            {
+              "name": "Login User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.user) {",
+                      "        pm.collectionVariables.set('user_id', response.data.user.id.toString());",
+                      "    }",
+                      "    if (response.data && response.data.token) {",
+                      "        pm.collectionVariables.set('auth_token', response.data.token);",
+                      "    }",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/users/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "login"]
+                }
+              }
+            },
+            {
+              "name": "Logout User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/users/logout",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "logout"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🔐 Authenticated User Routes",
+      "item": [
+        {
+          "name": "📋 Bookings",
+          "item": [
+            {
+              "name": "Get User Bookings",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings"]
+                }
+              }
+            },
+            {
+              "name": "Create Booking",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 201) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.id) {",
+                      "        pm.collectionVariables.set('booking_id', response.data.id.toString());",
+                      "    }",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hotel_id\": \"{{hotel_id}}\",\n  \"room_id\": 1,\n  \"check_in\": \"2025-07-01\",\n  \"check_out\": \"2025-07-03\",\n  \"guests\": 2,\n  \"total_amount\": 500000,\n  \"guest_name\": \"John Doe\",\n  \"guest_email\": \"john@example.com\",\n  \"guest_phone\": \"+628123456789\",\n  \"special_requests\": \"Late check-in\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings"]
+                }
+              }
+            },
+            {
+              "name": "Get Booking Details",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings/{{booking_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings", "{{booking_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Update Booking",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guests\": 3,\n  \"special_requests\": \"Early check-in and late check-out\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings/{{booking_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings", "{{booking_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Confirm Booking",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings/{{booking_id}}/confirm",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings", "{{booking_id}}", "confirm"]
+                }
+              }
+            },
+            {
+              "name": "Cancel Booking",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Change of plans\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings/{{booking_id}}/cancel",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings", "{{booking_id}}", "cancel"]
+                }
+              }
+            },
+            {
+              "name": "Delete Booking",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings/{{booking_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings", "{{booking_id}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "💳 Payments",
+          "item": [
+            {
+              "name": "Get User Payments",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/payments",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments"]
+                }
+              }
+            },
+            {
+              "name": "Create Payment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"booking_id\": \"{{booking_id}}\",\n  \"amount\": 500000,\n  \"payment_method\": \"credit_card\",\n  \"payment_gateway\": \"midtrans\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/payments",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments"]
+                }
+              }
+            },
+            {
+              "name": "Get Payment Details",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/payments/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Payment",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": \"bank_transfer\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/payments/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments", "1"]
+                }
+              }
+            },
+            {
+              "name": "Mark Payment as Paid",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/payments/1/mark-as-paid",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments", "1", "mark-as-paid"]
+                }
+              }
+            },
+            {
+              "name": "Mark Payment as Failed",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/payments/1/mark-as-failed",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments", "1", "mark-as-failed"]
+                }
+              }
+            },
+            {
+              "name": "Mark Payment as Refunded",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/payments/1/mark-as-refunded",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments", "1", "mark-as-refunded"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "⭐ Reviews (User)",
+          "item": [
+            {
+              "name": "Create Review",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 201) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.id) {",
+                      "        pm.collectionVariables.set('review_id', response.data.id.toString());",
+                      "    }",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"booking_id\": \"{{booking_id}}\",\n  \"hotel_id\": \"{{hotel_id}}\",\n  \"rating\": 5,\n  \"comment\": \"Excellent service and clean rooms. Highly recommended!\",\n  \"cleanliness_rating\": 5,\n  \"service_rating\": 5,\n  \"location_rating\": 4,\n  \"value_rating\": 5\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/reviews",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "reviews"]
+                }
+              }
+            },
+            {
+              "name": "Update Review",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rating\": 4,\n  \"comment\": \"Good service but room could be cleaner.\",\n  \"cleanliness_rating\": 3,\n  \"service_rating\": 5,\n  \"location_rating\": 4,\n  \"value_rating\": 4\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/reviews/{{review_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "reviews", "{{review_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Delete Review",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/reviews/{{review_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "reviews", "{{review_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Get User Reviews",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/reviews/user",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "reviews", "user"]
+                }
+              }
+            },
+            {
+              "name": "Check Can Review Booking",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings/{{booking_id}}/can-review",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings", "{{booking_id}}", "can-review"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "👤 User Profile",
+          "item": [
+            {
+              "name": "Get User Profile",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/users/profile",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "profile"]
+                }
+              }
+            },
+            {
+              "name": "Update User Profile",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"John Doe Updated\",\n  \"phone\": \"+628123456780\",\n  \"address\": \"Jl. Sudirman No. 123, Jakarta\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/users/profile",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "profile"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "👑 Admin Routes",
+      "item": [
+        {
+          "name": "🏨 Hotel Management",
+          "item": [
+            {
+              "name": "Create Hotel",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 201) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.id) {",
+                      "        pm.collectionVariables.set('hotel_id', response.data.id.toString());",
+                      "    }",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Grand Hotel Jakarta\",\n  \"description\": \"Luxury hotel in the heart of Jakarta\",\n  \"address\": \"Jl. Thamrin No. 1, Jakarta Pusat\",\n  \"city\": \"Jakarta\",\n  \"country\": \"Indonesia\",\n  \"phone\": \"+62211234567\",\n  \"email\": \"info@grandhotel.com\",\n  \"star_rating\": 5,\n  \"latitude\": -6.1944,\n  \"longitude\": 106.8229,\n  \"amenities\": [\"WiFi\", \"Pool\", \"Gym\", \"Spa\", \"Restaurant\"]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels"]
+                }
+              }
+            },
+            {
+              "name": "Update Hotel",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Grand Hotel Jakarta Updated\",\n  \"description\": \"Premium luxury hotel in the heart of Jakarta\",\n  \"star_rating\": 5,\n  \"amenities\": [\"WiFi\", \"Pool\", \"Gym\", \"Spa\", \"Restaurant\", \"Business Center\"]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Delete Hotel",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "🛏️ Room Type Management",
+          "item": [
+            {
+              "name": "Create Room Type",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Deluxe Suite\",\n  \"description\": \"Spacious suite with city view\",\n  \"base_price\": 1200000,\n  \"max_occupancy\": 4,\n  \"size_sqm\": 45,\n  \"amenities\": [\"King Bed\", \"Sofa\", \"Mini Bar\", \"City View\", \"Work Desk\"]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types"]
+                }
+              }
+            },
+            {
+              "name": "Update Room Type",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Deluxe Suite Premium\",\n  \"description\": \"Spacious premium suite with panoramic city view\",\n  \"base_price\": 1500000,\n  \"max_occupancy\": 4,\n  \"size_sqm\": 50\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types", "1"]
+                }
+              }
+            },
+            {
+              "name": "Delete Room Type",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "🏠 Room Management",
+          "item": [
+            {
+              "name": "Get All Rooms",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms"]
+                }
+              }
+            },
+            {
+              "name": "Create Room",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hotel_id\": \"{{hotel_id}}\",\n  \"room_type_id\": 1,\n  \"room_number\": \"101\",\n  \"floor\": 1,\n  \"status\": \"available\",\n  \"notes\": \"Recently renovated\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms"]
+                }
+              }
+            },
+            {
+              "name": "Get Room Details",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Room",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"maintenance\",\n  \"notes\": \"Under maintenance until next week\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms", "1"]
+                }
+              }
+            },
+            {
+              "name": "Delete Room",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Room Status",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"available\",\n  \"notes\": \"Maintenance completed\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms/1/update-status",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms", "1", "update-status"]
+                }
+              }
+            },
+            {
+              "name": "Get Hotel Rooms",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}/rooms",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}", "rooms"]
+                }
+              }
+            },
+            {
+              "name": "Get Room Statistics",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms/statistics",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms", "statistics"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "👥 User Management",
+          "item": [
+            {
+              "name": "Get All Users",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users"]
+                }
+              }
+            },
+            {
+              "name": "Get User Details",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/users/{{user_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "{{user_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Update User",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"John Doe Admin Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"role\": \"user\",\n  \"is_active\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/users/{{user_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "{{user_id}}"]
+                }
+              }
+            },
+            {
+              "name": "Delete User",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/users/{{user_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "users", "{{user_id}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "📋 Booking Management",
+          "item": [
+            {
+              "name": "Get All Bookings (Admin)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/bookings/all",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "bookings", "all"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "💳 Payment Management",
+          "item": [
+            {
+              "name": "Get All Payments (Admin)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/payments/all",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "payments", "all"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🏨 Hotel Manager Routes",
+      "item": [
+        {
+          "name": "🏨 My Hotels",
+          "item": [
+            {
+              "name": "Get My Hotels",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/my-hotels",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "my-hotels"]
+                }
+              }
+            },
+            {
+              "name": "Update My Hotel",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Hotel Updated\",\n  \"description\": \"Updated by hotel manager\",\n  \"amenities\": [\"WiFi\", \"Pool\", \"Restaurant\"]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "🏠 Room Management",
+          "item": [
+            {
+              "name": "Get Hotel Rooms",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}/rooms",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}", "rooms"]
+                }
+              }
+            },
+            {
+              "name": "Update Room Status",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"occupied\",\n  \"notes\": \"Guest checked in\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/rooms/1/update-status",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "rooms", "1", "update-status"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "📋 Bookings",
+          "item": [
+            {
+              "name": "Get Hotel Bookings",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/hotels/{{hotel_id}}/bookings",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "hotels", "{{hotel_id}}", "bookings"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "🛏️ Room Types",
+          "item": [
+            {
+              "name": "Create Room Type",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hotel_id\": \"{{hotel_id}}\",\n  \"name\": \"Standard Room\",\n  \"description\": \"Comfortable standard room\",\n  \"base_price\": 500000,\n  \"max_occupancy\": 2,\n  \"size_sqm\": 25,\n  \"amenities\": [\"Queen Bed\", \"TV\", \"AC\", \"WiFi\"]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types"]
+                }
+              }
+            },
+            {
+              "name": "Update Room Type",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Standard Room Premium\",\n  \"description\": \"Upgraded standard room with better amenities\",\n  \"base_price\": 600000\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types", "1"]
+                }
+              }
+            },
+            {
+              "name": "Delete Room Type",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/v1/room-types/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["v1", "room-types", "1"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🔧 Utility Routes",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/health",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "health"]
+            }
+          }
+        },
+        {
+          "name": "API Documentation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/docs",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "docs"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-set Content-Type for POST/PUT requests with body",
+          "if (pm.request.method === 'POST' || pm.request.method === 'PUT') {",
+          "  if (pm.request.body && pm.request.body.mode === 'raw') {",
+          "    pm.request.headers.add({",
+          "      key: 'Content-Type',",
+          "      value: 'application/json'",
+          "    });",
+          "  }",
+          "}",
+          "",
+          "// Log current auth token for debugging",
+          "console.log('Current auth token:', pm.collectionVariables.get('auth_token'));"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global test script for all requests",
+          "pm.test('Response time is less than 5000ms', function () {",
+          "  pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "pm.test('Response has valid JSON structure', function () {",
+          "  if (pm.response.headers.get('Content-Type') && pm.response.headers.get('Content-Type').includes('application/json')) {",
+          "    pm.response.to.have.jsonBody();",
+          "  }",
+          "});",
+          "",
+          "// Log response for debugging",
+          "if (pm.response.code >= 400) {",
+          "  console.log('Error Response:', pm.response.text());",
+          "}"
+        ]
+      }
+    }
+  ]
+}
