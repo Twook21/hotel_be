@@ -43,8 +43,12 @@ Route::prefix('v1')->group(function () {
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
 
     // Booking Routes
-    Route::apiResource('bookings', BookingController::class);
-    Route::post('/bookings/{id}/confirm', [BookingController::class, 'confirm']);
+    Route::get('/my-bookings', [BookingController::class, 'myBookings']); // Get user's own bookings
+    Route::post('/bookings', [BookingController::class, 'store']); // Create new booking
+    Route::get('/bookings/{id}', [BookingController::class, 'show']); // Show specific booking (with auth check)
+    Route::put('/bookings/{id}', [BookingController::class, 'update']); // Update booking (with auth check)
+    Route::delete('/bookings/{id}', [BookingController::class, 'destroy']); // Delete booking (with auth check)
+
     Route::post('/bookings/{id}/cancel', [BookingController::class, 'cancel']);
 
     // Payment Routes
@@ -95,6 +99,8 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'role:admin'])->group(function 
 
     // Advanced Booking Management - Admin only
     Route::get('/bookings/all', [BookingController::class, 'index']); // Admin can see all bookings
+    Route::get('/bookings', [BookingController::class, 'allBookings']); // Get all bookings with filters
+    Route::post('/bookings/{id}/confirm', [BookingController::class, 'confirm']); // Confirm booking
 
     // Advanced Payment Management - Admin only
     Route::get('/payments/all', [PaymentController::class, 'index']); // Admin can see all payments
@@ -112,9 +118,10 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'role:hotel_manager'])->group(f
     Route::post('/rooms/{id}/update-status', [RoomController::class, 'updateStatus']);
 
     // Booking management for their hotels
-    Route::get('/hotels/{hotelId}/bookings', function($hotelId) {
+    Route::get('/hotels/{hotelId}/bookings', function ($hotelId) {
         return app(BookingController::class)->index(request()->merge(['hotel_id' => $hotelId]));
     });
+    
 
     // Room type management for their hotels
     Route::post('/room-types', [RoomTypeController::class, 'store']);
